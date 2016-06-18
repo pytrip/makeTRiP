@@ -1,0 +1,17 @@
+* -------------- WATER ----------------
+MEDIUM 1
+ICRU 276
+LOADDEDX
+END
+
+* -------------- AIR ----------------
+MEDIUM 2
+ICRU 104
+LOADDEDX
+END
+
+* -------------- RIFI MATERIAL ----------------
+MEDIUM    3
+ICRU 223
+LOADDEDX
+END

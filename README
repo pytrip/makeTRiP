@@ -1,0 +1,51 @@
+### makeTRiP package usage ###
+
+makeTRiP generates spectrum and depth-dose files (SPC and DDD)
+for TRiP98 for a specified energy grid and ion type.
+
+Usage and comments:
+
+1) specify energy interval, step size and primary ion in  
+   config.sh.
+   If using a specific SIS file, adjust the energy interval accordingly 
+2) specify primary particle and other options in beam.dat
+   Recommended are between 400.000 and 3.000.000 primaries, with 400.000 being the quick-but-good option yielding acceptable results
+   If ripple filter or range shifter is needed, remember to choose the USEBMOD and BMODMC cards and the correct external beam modifier dat file 
+3) Change geo.dat if necessary, check the ripple filter.
+   If using a ripple filter, remember to set ZONE 3 "RIF" to material 3 (being Lucite in mat.dat)
+   If using a specific SIS file containing the lateral beam widening of the beam from the vacuum window to the target surface:
+          check if the environment around the target (apart from ripple filters and/or range shifters if required) is set to vacuum (1000)
+          ommit BEAMDIV card in beam.dat, omitting the beam divergency
+   If no SIS file with lateral beam widening data will be used:
+          select or write new geo.dat file with the beam application system and air included 
+          use the BEAMDIV card, choosing a realistic number for the beam divergency and the optical beam focusing     
+4) $ ./makeTRiP.sh <dir_name>
+   where <dir_name> will be created by makeTRiP if it does not exist.
+
+makeTRiP generates all SPC and unformatted DDD files in a new 
+subdirectory named dir_name.
+
+When the jobs have completed, use the postprocessing script
+The postprocessing required python (by the use of the python script ddd.py and the corresponding files)
+
+$ ./postprocess.sh <dir_name>
+
+
+### Designers note and changelog ###
+
+## Toke Printz Ringbaek, 11.03.2015
+
+For ddd.py version 0.2, compiled March 2015, the following changes have been made compared to the 2012 Teiwes 0.1 version:
+1) Minor debugging, adding helpful comments 
+2) Bash- and python-scripts have been rewritten to handle the new SHIELD-HIT format
+3) Instead of fitting with a double Gaussian the dose as a function of radius D(r), the fit function and dataset are now scaled with radius; D(r)*r
+4) For depth values regarded as being in the tail of the dose distribution, the FWHM1, factor and FWHM2 are made constant (since the fitting for these values returns nonsense)
+5) For the calculation of the factor A2/(A1+A2), the NORMALIZED amplitudes must be used. This has been added.  
+
+Comments and issues for future corrections: 
+Fitting D(r)*r instead of D(r) removes observed "fluctuations" in the FWHM2 values
+All fitted FWHM values are still a few factors too high compared to the DDD datasets in TRiP, which has been used for benchmarking
+While FWHM(depth) are found to increase very linearly, which is inconsistent with expectations and the DDD sets in TRiP which has been used for benchmarking.
+It remains to be discovered whether or not the above issues are relatet to particle transport in SHIELD-HIT, errors in ddd.py or a combination.
+The aim is to solve the above issues in the near future.
+

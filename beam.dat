@@ -1,0 +1,20 @@
+*         Input file for023.dat for the SHIELD-HIT Tansport Code
+<--CARD--><-------------Data (1 to 3 arguments) and comments---------------->
+RNDSEED                 89736515    ! Random seed
+JPART0                        25    ! Incident particle type
+HIPROJ                      12.0         6.0     ! Carbon ions
+TMAX0                      XXX.0         0.0     ! Incident energy; (MeV/nucl)
+BEAMSIGMA                    0.0         0.0     ! SigmaX, SigmaY at focus
+BEAMPOS                      0.0         0.0     -95.0 ! Beam XYZ start pos
+*BEAMDIV                      2.0         2.0     -140.10 ! divx, divy, focus
+NSTAT                    3000000      100000     ! NSTAT, Step of saving
+NEUTRLCUT                    0.0    ! Cutoff for neutron transport
+DELTAE                      0.02    ! Delta E (relative share ~0.1)
+DEMIN                       0.03    ! Minimum Energy step 0.025 (MeV/u)
+STRAGG                         2    ! Straggling: 0-Off 1-Gauss, 2-Vavilov
+MSCAT                          2    ! Mult. scatt 0-Off 1-Gauss, 2-Moliere
+NUCRE                          1    ! Nucl.Reac. switcher: 0-Off, 1-On
+*USEBMOD            3 2drifi3.dat    ! Filename of ripple filter file
+*BMODMC                         1    ! Random sampling of ripple filter thickness
+
+
